@@ -1,23 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
+import { connect, sendMessage } from "./api";
+
+function send() {
+  console.log("hi");
+  sendMessage("hi hi");
+}
 
 function App() {
+  connect();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={send}>Hit me</button>
     </div>
   );
 }
