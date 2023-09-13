@@ -1,2 +1,2 @@
-# URL Shortener
-This is just an exercise so I can get my hands more in Go, I'm just having a bit of fun with this language.
+# Chat App
+This is an exercise so I can undestrand Go better since I'm just having lots of fun with this language.
