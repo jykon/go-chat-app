@@ -1,5 +1,5 @@
 var socket = new WebSocket("ws://localhost:8080/ws");
-let connect = () => {
+let connect = cb => {
     console.log("Trying to connect. . .");
 
     socket.onopen = () => {
@@ -8,6 +8,8 @@ let connect = () => {
 
     socket.onmessage = message => {
         console.log(message);
+        cb(message)
+        
     };
 
     socket.onclose = event => {
