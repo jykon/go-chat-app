@@ -1,8 +1,6 @@
 package websocket
 
 import (
-	"fmt"
-	"io"
 	"log"
 	"net/http"
 
@@ -16,51 +14,10 @@ var upgrader = websocket.Upgrader{
 }
 
 func Upgrade(writer http.ResponseWriter, request *http.Request) (*websocket.Conn, error) {
-	ws, err := upgrader.Upgrade(writer, request, nil)
+	conn, err := upgrader.Upgrade(writer, request, nil)
 	if err != nil {
 		log.Println(err)
-		return ws, err
+		return nil, err
 	}
-	return ws, nil
-}
-
-func Reader(conn *websocket.Conn) {
-	for {
-		messageType, p, err := conn.ReadMessage()
-		if err != nil {
-			log.Println(err)
-			return
-		}
-
-		fmt.Println(string(p))
-
-		if err := conn.WriteMessage(messageType, p); err != nil {
-			log.Println(err)
-			return
-		}
-	}
-}
-
-func Writer(conn *websocket.Conn) {
-	for {
-		fmt.Println("Sending")
-		messageType, r, err := conn.NextReader()
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		w, err := conn.NextWriter(messageType)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		if _, err := io.Copy(w, r); err != nil {
-			fmt.Println(err)
-			return
-		}
-		if err := w.Close(); err != nil {
-			fmt.Println(err)
-			return
-		}
-	}
+	return conn, nil
 }

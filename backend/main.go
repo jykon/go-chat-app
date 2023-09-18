@@ -4,24 +4,36 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gorilla/websocket"
+	"github.com/jykon/go-chat-app/pkg/websocket"
 )
 
-func serveWs(w http.ResponseWriter, r *http.Request) {
-	ws, err := websocket.Upgrade(w, r)
+func serveWs(pool *websocket.Pool, writer http.ResponseWriter, request *http.Request) {
+	fmt.Println("We hit the EndPoint, boys")
+	conn, err := websocket.Upgrade(writer, request)
 	if err != nil {
-		fmt.Fprintf(w, "%+V\n", err)
+		fmt.Fprintf(writer, "%+v\n", err)
 	}
-	go websocket.Writer(ws)
-	websocket.Reader(ws)
+
+	client := &websocket.Client{
+		Conn: conn,
+		Pool: pool,
+	}
+
+	pool.Register <- client
+	client.Read()
 }
 
-func setupRoutes() {
-	http.HandleFunc("/ws", serveWs)
+func setRoutes() {
+	pool := websocket.NewPool()
+	go pool.Start()
+
+	http.HandleFunc("/ws", func(writer http.ResponseWriter, request *http.Request) {
+		serveWs(pool, writer, request)
+	})
 }
 
 func main() {
-	fmt.Println("Initial tests v1")
+	fmt.Println("Now Distributed Application v1")
 	setRoutes()
 	http.ListenAndServe(":8080", nil)
 }
