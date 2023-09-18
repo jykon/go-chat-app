@@ -1,0 +1,16 @@
+version: "3"
+services:
+  gochat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: "gochat"
+    ports:
+      - "8080:8080"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    container_name: "frontend"
+    ports:
+      - "3000:3000"
