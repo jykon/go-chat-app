@@ -15,3 +15,4 @@ const ChatHistory = ({ chatHistory }) => {
 };
 
 export default ChatHistory;
+

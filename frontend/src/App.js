@@ -3,6 +3,7 @@ import './App.css';
 import { connect, sendMessage } from "./api";
 import Header from './components/Header/Header';
 import ChatHistory from './components/ChatHistory/ChatHistory';
+import ChatInput from './components/ChatInput/ChatInput';
 
 function App() {
   const [chatHistory, setChatHistory] = useState([]);
@@ -19,20 +20,17 @@ function App() {
     connectAndReceiveMessages();
   }, []); 
 
-  const send = () => {
-    console.log("hihihi");
-
-    // Mensagem que será mandada para o State
-    sendMessage("hohohoho");
+  const send = (message) => {
+    console.log("New msg", message);
+    sendMessage(message); // Mensagem que será mandada para o State
   }
-
+  
   return (
     <div className="App">
       <Header />
       <ChatHistory chatHistory={chatHistory} />
-      <button onClick={send}>Hit me</button>
+      <ChatInput send ={send}/>
     </div>
   );
 }
-
 export default App;
