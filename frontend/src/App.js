@@ -17,7 +17,7 @@ function App() {
   }
 
   useEffect(() => {
-    connectAndReceiveMessages();
+    connectAndReceiveMessages();// eslint-disable-next-line
   }, []); 
 
   const send = (message) => {
