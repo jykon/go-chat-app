@@ -1,0 +1,14 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.ChatInput>input{
+    width: 255px;
+    height: 60px;
+    border-radius: 2px;
+    border-style: none;
+    background-color: rgba(37, 40, 61, 0.582);
+    text-decoration: none;
+    color: white;
+    outline: none;
+}
