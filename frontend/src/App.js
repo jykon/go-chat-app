@@ -24,17 +24,13 @@ function App() {
     console.log("New msg", message);
     sendMessage(message); // Mensagem que será mandada para o State
   }
-   
-  //removi a mensagem do state que ficava aqui pq enviava 2x a msg.
   
   return (
     <div className="App">
       <Header />
       <ChatHistory chatHistory={chatHistory} />
       <ChatInput send ={send}/>
-      
     </div>
   );
 }
-
 export default App;
